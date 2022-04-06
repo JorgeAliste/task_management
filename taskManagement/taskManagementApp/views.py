@@ -12,14 +12,21 @@ def home(request):
             form.save()
             messages.success(request, 'New item added!')
             all_items = Task.objects.all()
-            return render(request, 'index.html', {'all_items': all_items})
+            return redirect('home')
 
     all_items = Task.objects.all()
 
     return render(request, 'index.html', {'all_items': all_items})
+
 
 def delete(request, item_id):
     item = Task.objects.get(pk=item_id)
     item.delete()
     messages.success(request, 'Item deleted!')
     return redirect('home')
+
+
+def tasks(request, task_pk):
+    task = Task.objects.get(id=task_pk)
+
+    return render(request, 'task.html', {'task': task})
