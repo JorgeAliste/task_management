@@ -17,3 +17,9 @@ def home(request):
     all_items = Task.objects.all()
 
     return render(request, 'index.html', {'all_items': all_items})
+
+def delete(request, item_id):
+    item = Task.objects.get(pk=item_id)
+    item.delete()
+    messages.success(request, 'Item deleted!')
+    return redirect('home')
