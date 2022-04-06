@@ -5,9 +5,21 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Taks list</h1>
+<h2>Tasks list</h2>
 {% for task in all_items %}
     <p>{{ task }}</p>
 {% endfor %}
+<h2>New task</h2>
+<form action="{% url 'home' %}" method="post">
+    {% csrf_token %}
+    <p><input type="text" name="task" placeholder="Enter task"></p>
+    <p><input type="text" name="priority" placeholder="Enter priority"></p>
+    <input type="submit">
+</form>
+{% if messages %}
+    {% for message in messages %}
+        <h3>{{ message }}</h3>
+    {% endfor %}
+{% endif %}
 </body>
 </html>
