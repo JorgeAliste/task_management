@@ -17,7 +17,7 @@
     {% for task in all_items %}
         <tr>
             <td>
-                {{ task.task }}
+                <a href="{% url 'task_page' task.id %}">{{ task.task }}</a>
             </td>
             <td>
                 {{ task.completed }}
