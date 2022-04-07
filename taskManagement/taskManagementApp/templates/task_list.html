@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <title>Tasks list</title>
+{% endblock %}
+
+{% block content %}
+    <h2>Tasks List</h2>
+    <table class="table table-hover">
+        <tr>
+            <th>Task Name</th>
+            <th>Completed</th>
+            <th>Delete</th>
+        </tr>
+        {% for task in all_items %}
+            <tr>
+                <td>
+                    <a href="{% url 'task_page' task.id %}">{{ task.task }}</a>
+                </td>
+                <td>
+                    {{ task.completed }}
+                </td>
+                <td>
+                    <a href="{% url 'delete' task.id %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h2>New task</h2>
+    <form action="{% url 'task_list' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="task">Task</label>
+            <p><input type="text" name="task" placeholder="Enter task"></p>
+        </div>
+        <div class="form-group">
+            <label for="priority">Priority</label>
+            <p><input type="text" name="priority" placeholder="Enter priority"></p>
+        </div>
+        <input type="submit" class="btn btn-primary">
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+            <h3>{{ message }}</h3>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    Home site for the task manager app.
+    {% if user.is_authenticated %}
+        <p>Welcome <b>{{ user.username }}</b></p>
+    {% else %}
+        <p>Please login to see the tasks list :)</p>
+    {% endif %}
+{% endblock %}
