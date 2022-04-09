@@ -6,7 +6,13 @@
 {% block content %}
     <h1>Task number {{ task.id }}</h1>
     <p>{{ task.task }}</p>
-    <p>{{ task.completed }}</p>
+    <p>{{ task.completed|yesno:"Completed, Not completed" }}</p>
     <p>{{ task.priority }}</p>
     <p>{{ task.time_date }}</p>
+
+    <form method="post" action="{% url 'task_page' task.id %}">
+        {% csrf_token %}
+        <button class="btn btn-info"
+                name="change_status">{{ task.completed|yesno:"Change to not completed, Change to completed" }}</button>
+    </form>
 {% endblock %}

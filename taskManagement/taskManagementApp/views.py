@@ -37,6 +37,11 @@ def tasks(request, task_pk):
 
     if request.user == task.user:
 
+        if request.method == 'POST':
+            if 'change_status' in request.POST:
+                task.completed = not task.completed
+                task.save()
+
         return render(request, 'task.html', {'task': task})
     else:
         raise PermissionDenied()

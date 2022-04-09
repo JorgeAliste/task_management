@@ -18,7 +18,7 @@
                     <a href="{% url 'task_page' task.id %}">{{ task.task }}</a>
                 </td>
                 <td>
-                    {{ task.completed }}
+                    {{ task.completed|yesno:"Completed, Not completed" }}
                 </td>
                 <td>
                     <a href="{% url 'delete' task.id %}">Delete</a>
