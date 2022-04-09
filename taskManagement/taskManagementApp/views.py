@@ -1,5 +1,5 @@
-from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.core.exceptions import ViewDoesNotExist
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Task
 from .forms import TaskForm
 from django.contrib import messages
@@ -33,7 +33,7 @@ def delete(request, item_id):
 
 @login_required
 def tasks(request, task_pk):
-    task = Task.objects.get(id=task_pk)
+    task = get_object_or_404(Task, id=task_pk)
 
     if request.user == task.user:
 
@@ -44,7 +44,7 @@ def tasks(request, task_pk):
 
         return render(request, 'task.html', {'task': task})
     else:
-        raise PermissionDenied()
+        raise ViewDoesNotExist()
 
 
 def home(request):
